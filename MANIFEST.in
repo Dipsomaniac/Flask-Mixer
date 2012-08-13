@@ -1,0 +1,2 @@
+recursive-include flask_mixer *
+exclude *.pyc *.orig

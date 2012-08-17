@@ -94,7 +94,8 @@ class ModelMixer:
         exclude = exclude or []
         related_explicit_values = related_explicit_values or dict()
         mapper = self.model_class._sa_class_manager.mapper
-        columns = [c for c in mapper.columns if not c.nullable and not c.name in exclude]
+        columns = [c for c in mapper.columns if not c.
+                   nullable and not c.name in exclude]
         for column in columns:
             if column.default:
                 v = column.default.execute(mixer.db.session.bind)

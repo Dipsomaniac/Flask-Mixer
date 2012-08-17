@@ -32,6 +32,7 @@ META_DATA = dict(
     url=' http://github.com/klen/Flask-Milkman',
 
     packages=find_packages(),
+    install_requires=install_requires,
     test_suite = 'tests',
 )
 

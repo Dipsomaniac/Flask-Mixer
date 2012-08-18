@@ -4,18 +4,16 @@ __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "GNU LGPL"
 
 
-from .core import GeneratorRegistry, ModelMixer, RANDOM
-
-
 class Mixer:
     " Base container for models and generators. "
-
-    random = RANDOM
 
     def __init__(self, app, registry=None, session_add=True, session_commit=False):
         " Initialize mixer, registry and models. "
 
+        from .core import GeneratorRegistry, RANDOM
+
         self.models = dict()
+        self.random = RANDOM
         self.session_add = session_add
         self.session_commit = session_commit
         self.registry = registry or GeneratorRegistry()
@@ -35,6 +33,8 @@ class Mixer:
 
     def blend(self, tablename, **values):
         " Generate instance of model. "
+
+        from .core import ModelMixer
 
         model_mixer = self.models.setdefault(tablename, ModelMixer(tablename))
         result = model_mixer.blend(self, **values)

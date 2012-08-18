@@ -40,5 +40,8 @@ class BaseTest(TestCase):
             self.assertEqual(user.profile, profile)
 
             profiles = Profile.query.all()
-            user = mixer.blend(User, profile=Profile)
+            user = mixer.blend(User, profile=mixer.random)
             self.assertTrue(user.profile in profiles)
+
+            user = mixer.blend(User, score=mixer.random)
+            self.assertNotEqual(user.score, 50)

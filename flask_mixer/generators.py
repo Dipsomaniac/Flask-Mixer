@@ -137,11 +137,11 @@ def random_big_integer_maker(column):
 
 
 def random_small_integer_maker(column):
-    return random_integer_maker(column, low=-1, high=1)
+    return random_integer_maker(column, low=-32768, high=32767)
 
 
 def random_small_positive_integer_maker(column):
-    return random_integer_maker(column, low=0, high=1)
+    return random_integer_maker(column, low=0, high=32767)
 
 
 def random_positive_integer_maker(column):

@@ -6,6 +6,8 @@ from sqlalchemy import func
 
 from . import generators
 
+RANDOM = object()
+
 
 class GeneratorRegistry:
     " Fabric of generators. "
@@ -81,25 +83,23 @@ class ModelMixer:
             else:
                 model_explicit_values[key] = value
 
-        self.set_explicit_values(target, model_explicit_values)
+        self.set_explicit_values(mixer, target, model_explicit_values)
         exclude = model_explicit_values.keys()
-        self.set_local_fields(
-            target, mixer,
-            exclude=exclude)
-        self.set_related_fields(
-            target, mixer,
-            exclude=exclude,
-            related_explicit_values=related_explicit_values)
+        self.set_local_fields(target, mixer, exclude)
+        self.set_related_fields(target, mixer, exclude, related_explicit_values=related_explicit_values)
         return target
 
-    def beat(self, mixer, **explicit_values):
-        pass
-
-    @staticmethod
-    def set_explicit_values(target, values):
+    def set_explicit_values(self, mixer, target, values):
         for k, v in values.iteritems():
-            if isinstance(v, type):
-                v = v.query.order_by(func.random()).first()
+
+            if v == RANDOM:
+                try:
+                    column = self.mapper.columns.get(k)
+                    v = self.generator_for(mixer.registry, column).next()
+                except AttributeError:
+                    prop = self.mapper.get_property(k)
+                    v = prop.mapper.class_.query.order_by(func.random()).first()
+
             setattr(target, k, v)
 
     def set_local_fields(self, target, mixer, exclude):

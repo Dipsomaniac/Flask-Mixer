@@ -66,7 +66,7 @@ Example: ::
             user = db.relationship("User", uselist=False, backref="profile")
 
 
-        mixer = Mixer(app)
+        mixer = Mixer(app, session_commit=True)
 
         with app.test_request_context():
             db.create_all()
@@ -92,11 +92,13 @@ Example: ::
 
             # Set related values from db by random
             profiles = Profile.query.all()
-            # (Use model class as value)
-            user = mixer.blend(User, profile=Profile)
+            user = mixer.blend(User, profile=mixer.random)
             assert user.profile in profiles
 
-            db.session.commit()
+            # By default, column with defvalue will be to init as them
+            # but you can still force set it to random value
+            user = mixer.blend(User, score=mixer.random)
+            assert user.score != 50
 
 
 Bug tracker

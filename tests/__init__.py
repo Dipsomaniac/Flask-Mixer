@@ -45,3 +45,6 @@ class BaseTest(TestCase):
 
             user = mixer.blend(User, score=mixer.random)
             self.assertNotEqual(user.score, 50)
+
+            user = mixer.blend(User, username=lambda: 'callable_value')
+            self.assertEqual(user.username, 'callable_value')

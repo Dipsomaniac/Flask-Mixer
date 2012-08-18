@@ -100,6 +100,9 @@ class ModelMixer:
                     prop = self.mapper.get_property(k)
                     v = prop.mapper.class_.query.order_by(func.random()).first()
 
+            elif callable(v):
+                v = v()
+
             setattr(target, k, v)
 
     def set_local_fields(self, target, mixer, exclude):

@@ -3,6 +3,7 @@
 	* Version 0.1.4
 	* Minor release
 	* mixer.random
+	* value can be callable
 
 2012-08-13  klen
 

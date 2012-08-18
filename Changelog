@@ -1,6 +1,6 @@
 2012-08-18  klen
 
-	* Version 0.1.5
+	* Version 0.1.6
 	* Minor release
 	* mixer.random
 	* value can be callable

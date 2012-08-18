@@ -1,4 +1,4 @@
-__version__ = version = '0.1.0'
+__version__ = version = '0.1.1'
 __project__ = project = __name__
 __author__ = author = "Kirill Klenov <horneds@gmail.com>"
 __license__ = license = "GNU LGPL"
@@ -24,7 +24,8 @@ class Mixer:
         " Get db from application. "
 
         self.app = app
-        assert app.extensions and app.extensions['sqlalchemy'], "Flask-SQLAlchemy must be inialized before Mixer."
+        assert app.extensions and app.extensions[
+            'sqlalchemy'], "Flask-SQLAlchemy must be inialized before Mixer."
         self.db = app.extensions['sqlalchemy'].db
         self.app.extensions['milkman'] = self
 

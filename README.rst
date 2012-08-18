@@ -100,6 +100,10 @@ Example: ::
             user = mixer.blend(User, score=mixer.random)
             assert user.score != 50
 
+            # Value can be callable
+            user = mixer.blend(User, username=lambda:'callable_value')
+            assert user.username == 'callable_value'
+
 
 Bug tracker
 ===========

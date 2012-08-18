@@ -42,6 +42,6 @@ class Mixer:
             self.db.session.add(result)
 
         if self.session_commit:
-            self.db.session.commit(result)
+            self.db.session.commit()
 
         return result

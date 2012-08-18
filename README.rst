@@ -59,6 +59,12 @@ Example: ::
 
             user = db.relation(User)
 
+        class Profile(db.Model):
+            __tablename__ = 'profile'
+            id = db.Column(db.Integer, primary_key=True)
+            name = db.Column(db.String(20), nullable=False)
+            user = db.relationship("User", uselist=False, backref="profile")
+
 
         mixer = Mixer(app)
 
@@ -69,6 +75,7 @@ Example: ::
             user1 = mixer.blend(User)
             assert user1.id and user1.username and user1.created_at
             assert user1.score == 50
+            assert user.profile.user == user
 
             # Generate model with some values
             user2 = mixer.blend(User, username='test')
@@ -82,6 +89,12 @@ Example: ::
             # Generate model with reference
             role1 = mixer.blend(Role, user__username='test2')
             assert role2.user.username == 'test2'
+
+            # Set related values from db by random
+            profiles = Profile.query.all()
+            # (Use model class as value)
+            user = mixer.blend(User, profile=Profile)
+            assert user.profile in profiles
 
             db.session.commit()
 

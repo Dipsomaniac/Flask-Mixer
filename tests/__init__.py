@@ -6,29 +6,39 @@ class BaseTest(TestCase):
     def test_mixer(self):
         from flask import Flask
         from flask_mixer import Mixer
-        from .models import db, User
+        from .models import db, User, Profile
 
         app = Flask(__name__)
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         db.init_app(app)
-        mixer = Mixer(app)
+        mixer = Mixer(app, session_commit=True)
 
         with app.test_request_context():
+
             db.create_all()
 
             role = mixer.blend('tests.models.Role')
-            user = mixer.blend(User)
-            user2 = mixer.blend(User, username='test')
-            role2 = mixer.blend('tests.models.Role', user__username='test2')
-            db.session.commit()
+            self.assertTrue(role.user)
+            self.assertEqual(role.user_id, role.user.id)
 
+            user = mixer.blend(User)
+            self.assertTrue(user.id)
+            self.assertTrue(user.username)
             self.assertEqual(user.score, 50)
             self.assertTrue(user.created_at)
             self.assertTrue(user.profile)
             self.assertEqual(user.profile.user, user)
-            self.assertTrue(role.user)
-            self.assertEqual(role.user_id, role.user.id)
-            self.assertEqual(role2.user.username, 'test2')
-            self.assertTrue(user.id)
-            self.assertTrue(user.username)
-            self.assertEqual(user2.username, 'test')
+
+            user = mixer.blend(User, username='test')
+            self.assertEqual(user.username, 'test')
+
+            role = mixer.blend('tests.models.Role', user__username='test2')
+            self.assertEqual(role.user.username, 'test2')
+
+            profile = mixer.blend('tests.models.Profile')
+            user = mixer.blend(User, profile=profile)
+            self.assertEqual(user.profile, profile)
+
+            profiles = Profile.query.all()
+            user = mixer.blend(User, profile=Profile)
+            self.assertTrue(user.profile in profiles)

@@ -1,4 +1,4 @@
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 __project__ = __name__
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "GNU LGPL"
@@ -42,6 +42,6 @@ class Mixer:
             self.db.session.add(result)
 
         if self.session_commit:
-            self.db.session.commit(result)
+            self.db.session.commit()
 
         return result

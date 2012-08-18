@@ -1,5 +1,6 @@
 from importlib import import_module
 
+from sqlalchemy.orm.interfaces import MANYTOONE
 from sqlalchemy.types import BIGINT, BOOLEAN, BigInteger, Boolean, CHAR, DATE, DATETIME, DECIMAL, Date, DateTime, FLOAT, Float, INT, INTEGER, Integer, NCHAR, NVARCHAR, NUMERIC, Numeric, SMALLINT, SmallInteger, String, TEXT, TIME, Text, Time, Unicode, UnicodeText, VARCHAR
 
 from . import generators
@@ -73,7 +74,7 @@ class ModelMixer:
         related_explicit_values = {}
         for key, value in explicit_values.iteritems():
             if '__' in key:
-                prefix, sep, postfix = key.partition('__')
+                prefix, _, postfix = key.partition('__')
                 params = related_explicit_values.setdefault(prefix, {})
                 params[postfix] = value
             else:
@@ -86,7 +87,8 @@ class ModelMixer:
             related_explicit_values=related_explicit_values)
         return target
 
-    def set_explicit_values(self, target, values):
+    @staticmethod
+    def set_explicit_values(target, values):
         for k, v in values.iteritems():
             setattr(target, k, v)
 
@@ -104,9 +106,9 @@ class ModelMixer:
             setattr(target, column.name, v)
 
         for prop in mapper.iterate_properties:
-            if hasattr(prop, 'direction'):
+            if hasattr(prop, 'direction') and prop.direction == MANYTOONE:
                 related_values = related_explicit_values.get(prop.key, dict())
-                value = mixer.blend(prop.argument, **related_values)
+                value = mixer.blend(prop.mapper.class_, **related_values)
                 col = prop.local_remote_pairs[0][0]
                 setattr(target, prop.key, value)
                 setattr(target, col.name,

@@ -18,12 +18,15 @@ upload:
 	python setup.py sdist upload || echo 'Upload already'
 
 .PHONY: test
-test: audit
+test:
 	python setup.py test
 
 .PHONY: audit
 audit:
 	pylama $(MODULE) -i E501
+
+.PHONY: travis
+travis: audit test
 
 .PHONY: doc
 doc:

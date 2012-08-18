@@ -2,13 +2,13 @@ import datetime
 import sys
 
 import random
-import string
 
 
 DEFAULT_STRING_LENGTH = 8
 DECIMAL_TEMPLATE = "%%d.%%0%dd"
 EMAIL_TEMPLATE = "%s%%d@%s"
 DATETIME_TEMPLATE = "%s %d:%d"
+CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 
 def loop(func):
@@ -31,8 +31,9 @@ def default_gen_maker(column):
     return loop(lambda: '')
 
 
-def random_choice_iterator(choices=[''], size=1):
-    for i in range(0, size):
+def random_choice_iterator(choices=None, size=1):
+    choices = choices or ['']
+    for _ in xrange(0, size):
         yield random.choice(choices)
 
 
@@ -49,7 +50,7 @@ def random_string(max_length=None, chars=None):
     if max_length is None:
         max_length = DEFAULT_STRING_LENGTH
     if chars is None:
-        chars = (string.ascii_letters + string.digits)
+        chars = CHARS
     i = random_choice_iterator(chars, max_length)
     return ''.join(x for x in i)
 
@@ -148,7 +149,7 @@ def random_positive_integer_maker(column):
 
 
 def random_float_maker(column):
-    return loop(lambda: random_float())
+    return loop(random_float)
 
 
 def random_auto_column_maker(column):
@@ -164,4 +165,4 @@ def random_ipaddress_maker(column):
 
 
 def random_time_string_maker(column):
-    return loop(lambda: random_time_string())
+    return loop(random_time_string)

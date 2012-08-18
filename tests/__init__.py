@@ -24,6 +24,8 @@ class BaseTest(TestCase):
 
             self.assertEqual(user.score, 50)
             self.assertTrue(user.created_at)
+            self.assertTrue(user.profile)
+            self.assertEqual(user.profile.user, user)
             self.assertTrue(role.user)
             self.assertEqual(role.user_id, role.user.id)
             self.assertEqual(role2.user.username, 'test2')

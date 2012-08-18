@@ -1,4 +1,4 @@
-__version__ = version = '0.1.0'
+__version__ = version = '0.1.1'
 __project__ = project = __name__
 __author__ = author = "Kirill Klenov <horneds@gmail.com>"
 __license__ = license = "GNU LGPL"

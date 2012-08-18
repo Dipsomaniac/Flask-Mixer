@@ -6,6 +6,11 @@ Fast and convenient test-data generation.
 
 Flask-Mixer is in early development.
 
+.. image:: https://secure.travis-ci.org/klen/Flask-Mixer.png?branch=develop
+    :target: http://travis-ci.org/klen/Flask-Mixer
+    :alt: Build Status
+
+.. contents::
 
 Requirements
 =============

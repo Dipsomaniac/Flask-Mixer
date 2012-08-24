@@ -18,12 +18,11 @@ class Mixer:
         self.session_commit = session_commit
         self.registry = registry or GeneratorRegistry()
         self.db = None
-        
+        self.app = None
+
         if app:
             self.init_app(app)
-        else:
-            self.app = None
-            
+
     def init_app(self, app):
         " Get db from application. "
 
@@ -31,9 +30,9 @@ class Mixer:
         assert app.extensions and app.extensions[
             'sqlalchemy'], "Flask-SQLAlchemy must be inialized before Mixer."
         self.db = app.extensions['sqlalchemy'].db
-        
+
         # register extension with app
-        app.extensions['milkman'] = self
+        app.extensions['mixer'] = self
 
     def blend(self, tablename, **values):
         " Generate instance of model. "

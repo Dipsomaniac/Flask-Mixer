@@ -11,7 +11,8 @@ class BaseTest(TestCase):
         app = Flask(__name__)
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
         db.init_app(app)
-        mixer = Mixer(app, session_commit=True)
+        mixer = Mixer(session_commit=True)
+        mixer.init_app(app)
 
         with app.test_request_context():
 

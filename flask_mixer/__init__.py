@@ -1,4 +1,4 @@
-__version__ = '0.1.6'
+__version__ = '0.1.7'
 __project__ = __name__
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "GNU LGPL"
@@ -7,7 +7,7 @@ __license__ = "GNU LGPL"
 class Mixer:
     " Base container for models and generators. "
 
-    def __init__(self, app, registry=None, session_add=True, session_commit=False):
+    def __init__(self, app=None, registry=None, session_add=True, session_commit=False):
         " Initialize mixer, registry and models. "
 
         from .core import GeneratorRegistry, RANDOM
@@ -17,9 +17,10 @@ class Mixer:
         self.session_add = session_add
         self.session_commit = session_commit
         self.registry = registry or GeneratorRegistry()
-        self.app = app
         self.db = None
-        if self.app:
+        self.app = None
+
+        if app:
             self.init_app(app)
 
     def init_app(self, app):
@@ -29,7 +30,9 @@ class Mixer:
         assert app.extensions and app.extensions[
             'sqlalchemy'], "Flask-SQLAlchemy must be inialized before Mixer."
         self.db = app.extensions['sqlalchemy'].db
-        self.app.extensions['milkman'] = self
+
+        # register extension with app
+        app.extensions['mixer'] = self
 
     def blend(self, tablename, **values):
         " Generate instance of model. "

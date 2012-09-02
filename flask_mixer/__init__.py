@@ -8,7 +8,7 @@
 
 """
 
-__version__ = '0.1.7'
+__version__ = '0.1.8'
 __project__ = __name__
 __author__ = "Kirill Klenov <horneds@gmail.com>"
 __license__ = "GNU LGPL"

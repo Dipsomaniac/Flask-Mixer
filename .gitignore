@@ -4,3 +4,4 @@
 .ropeproject
 *.egg*
 dist
+_build

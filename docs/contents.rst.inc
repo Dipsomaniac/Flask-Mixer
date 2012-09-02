@@ -9,7 +9,6 @@ Flask-Mixer.
 
    quickstart
    installation
-   config
 
 API Reference
 -------------

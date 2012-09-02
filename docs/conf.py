@@ -2,8 +2,7 @@
 import os
 import sys
 
-import pkg_resources
-
+from flask_mixer import __version__ as release
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
@@ -12,7 +11,6 @@ source_suffix = '.rst'
 master_doc = 'index'
 project = u'Flask-Mixer'
 copyright = u'2012, Kirill Klenov'
-release = pkg_resources.get_distribution('Flask-Mixer').version
 version = '.'.join(release.split('.')[:2])
 exclude_patterns = ['_build']
 html_use_modindex = False

@@ -8,6 +8,7 @@ Flask-Mixer.
    :maxdepth: 2
 
    quickstart
+   installation
    config
 
 API Reference

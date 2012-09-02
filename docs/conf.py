@@ -38,3 +38,7 @@ man_pages = [
 pygments_style = 'tango'
 html_theme = 'default'
 html_theme_options = {}
+
+sys.path.append(os.path.abspath('_themes'))
+html_theme_path = ['_themes']
+html_theme = 'flask'

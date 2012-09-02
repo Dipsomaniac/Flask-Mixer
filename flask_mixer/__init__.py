@@ -11,7 +11,7 @@
 __version__ = '0.1.8'
 __project__ = __name__
 __author__ = "Kirill Klenov <horneds@gmail.com>"
-__license__ = "GNU LGPL"
+__license__ = "BSD"
 
 
 class Mixer:

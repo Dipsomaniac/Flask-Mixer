@@ -128,8 +128,8 @@ Contributors
 License
 =======
 
-Licensed under a `GNU lesser general public license`_.
+Licensed under a `BSD license`_.
 
 
-.. _GNU lesser general public license: http://www.gnu.org/copyleft/lesser.html
+.. _BSD license: http://www.linfo.org/bsdlicense.html
 .. _klen: http://klen.github.com/

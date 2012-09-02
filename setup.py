@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+
+"""
+Flask-Mixer
+-----------
+
+Object generation for Flask and SQLAlchemy.
+
+"""
+
 import os
 from sys import version_info
 
@@ -30,6 +39,12 @@ META_DATA = dict(
     author='Kirill Klenov',
     author_email='horneds@gmail.com',
     url=' http://github.com/klen/Flask-Milkman',
+    classifiers=[
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+    ],
 
     packages=find_packages(),
     install_requires=install_requires,

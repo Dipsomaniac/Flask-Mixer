@@ -1,37 +1,16 @@
-Flask-Mixer
-###########
+.. _quickstart:
 
-Flask-Mixer is simply application for generate instances of SQLAlchemy models. It's useful for testing.
-Fast and convenient test-data generation.
+Quickstart
+==========
 
-Flask-Mixer is in early development.
+.. currentmodule:: flask.ext.mixer
 
-.. image:: https://secure.travis-ci.org/klen/Flask-Mixer.png?branch=develop
-    :target: http://travis-ci.org/klen/Flask-Mixer
-    :alt: Build Status
-
-.. contents::
-
-Requirements
-=============
-
-- python >= 2.6
-- Flask >= 0.8
-- Flask-SQLAlchemy>=0.16
+Flask-Mixer is easy to use and realy fun for testing applications.  For the complete guide, checkout out the API documentation on the :class:`Mixer` class.
 
 
-Installation
-=============
-
-**Flask-Mixer** should be installed using pip: ::
-
-    pip install Flask-Mixer
-
-
-Usage
-=====
-
-Example: ::
+Base example
+------------
+::
 
         from flask import Flask
         from flask.ext.mixer import Mixer
@@ -77,18 +56,32 @@ Example: ::
             assert user1.score == 50
             assert user.profile.user == user
 
-            # Generate model with some values
-            user2 = mixer.blend(User, username='test')
-            assert user2.username == 'test'
-
             # Model would be defined as string
             role1 = mixer.blend('app.models.Role')
             assert role1.user
             assert role1.user_id == role1.user.id
 
+
+Blend models with values
+------------------------
+::
+
+            # Generate model with some values
+            user2 = mixer.blend(User, username='test')
+            assert user2.username == 'test'
+
             # Generate model with reference
             role1 = mixer.blend(Role, user__username='test2')
             assert role2.user.username == 'test2'
+
+            # Value can be callable
+            user = mixer.blend(User, username=lambda:'callable_value')
+            assert user.username == 'callable_value'
+
+
+Set values from db
+------------------
+::
 
             # Set related values from db by random
             profiles = Profile.query.all()
@@ -100,36 +93,3 @@ Example: ::
             user = mixer.blend(User, score=mixer.random)
             assert user.score != 50
 
-            # Value can be callable
-            user = mixer.blend(User, username=lambda:'callable_value')
-            assert user.username == 'callable_value'
-
-
-Bug tracker
-===========
-
-If you have any suggestions, bug reports or
-annoyances please report them to the issue tracker
-at https://github.com/klen/Flask-Mixer/issues
-
-
-Contributing
-============
-
-Development of flask-mixer happens at github: https://github.com/klen/Flask-Mixer
-
-
-Contributors
-=============
-
-* klen_ (Kirill Klenov)
-
-
-License
-=======
-
-Licensed under a `GNU lesser general public license`_.
-
-
-.. _GNU lesser general public license: http://www.gnu.org/copyleft/lesser.html
-.. _klen: http://klen.github.com/

@@ -38,7 +38,7 @@ META_DATA = dict(
 
     author='Kirill Klenov',
     author_email='horneds@gmail.com',
-    url=' http://github.com/klen/Flask-Milkman',
+    url=' http://github.com/klen/Flask-Mixer',
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',

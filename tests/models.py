@@ -25,7 +25,7 @@ class User(db.Model):
     score = db.Column(db.SmallInteger, default=50, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     username = db.Column(db.String(20), nullable=False)
-    profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
+    profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
 
     messages = db.relationship("Message", secondary=usermessages, backref="users")
 
@@ -42,3 +42,13 @@ class Role(db.Model):
 class Message(db.Model):
     __tablename__ = 'message'
     id = db.Column(db.Integer, primary_key=True)
+
+
+class Node(db.Model):
+    __tablename__ = 'node'
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('node.id'))
+    children = db.relation(
+        'Node',
+        cascade='all',
+        backref=db.backref('parent', remote_side='Node.id'))

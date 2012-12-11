@@ -6,7 +6,7 @@ BUILDDIR=_build
 
 .PHONY: clean
 clean:
-	sudo rm -rf build dist
+	rm -rf build dist
 	find . -name "*.pyc" -delete
 	find . -name "*.orig" -delete
 

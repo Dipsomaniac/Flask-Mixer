@@ -6,7 +6,7 @@ class BaseTest(TestCase):
     def test_mixer(self):
         from flask import Flask
         from flask_mixer import Mixer
-        from .models import db, User, Profile
+        from .models import db, User
 
         app = Flask(__name__)
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
@@ -17,6 +17,10 @@ class BaseTest(TestCase):
         with app.test_request_context():
 
             db.create_all()
+
+            node = mixer.blend('tests.models.Node')
+            self.assertTrue(node.id)
+            self.assertFalse(node.parent)
 
             role = mixer.blend('tests.models.Role')
             self.assertTrue(role.user)
@@ -36,13 +40,13 @@ class BaseTest(TestCase):
             role = mixer.blend('tests.models.Role', user__username='test2')
             self.assertEqual(role.user.username, 'test2')
 
+            users = User.query.all()
+            role = mixer.blend('tests.models.Role', user=mixer.random)
+            self.assertTrue(role.user in users)
+
             profile = mixer.blend('tests.models.Profile')
             user = mixer.blend(User, profile=profile)
             self.assertEqual(user.profile, profile)
-
-            profiles = Profile.query.all()
-            user = mixer.blend(User, profile=mixer.random)
-            self.assertTrue(user.profile in profiles)
 
             user = mixer.blend(User, score=mixer.random)
             self.assertNotEqual(user.score, 50)

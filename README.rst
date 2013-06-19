@@ -1,6 +1,10 @@
 Flask-Mixer
 ###########
 
+.. image:: https://raw.github.com/klen/Flask-Mixer/develop/depricated.png
+
+.. warning:: This module is depricated. Use https://github.com/klen/mixer instead.
+
 Flask-Mixer is simply application for generate instances of SQLAlchemy models. It's useful for testing.
 Fast and convenient test-data generation.
 

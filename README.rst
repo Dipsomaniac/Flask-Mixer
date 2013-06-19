@@ -1,7 +1,7 @@
 Flask-Mixer
 ###########
 
-.. image:: https://raw.github.com/klen/Flask-Mixer/develop/depricated.png
+.. image:: https://raw.github.com/klen/Flask-Mixer/master/deprecated.png
 
 .. warning:: This module is depricated. Use https://github.com/klen/mixer instead.
 
